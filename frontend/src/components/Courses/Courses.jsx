@@ -1,6 +1,7 @@
 import React from 'react'
-import { Container, Heading, Input, Text, Button, HStack, Stack, VStack, Image, Link } from '@chakra-ui/react'
+import { Container, Heading, Input, Text, Button, HStack, Stack, VStack, Image } from '@chakra-ui/react'
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 
 const Course = ({views,title,imageSrc,id,addToPlayHandler,creator,description,lectureCount})=>{
  return (
