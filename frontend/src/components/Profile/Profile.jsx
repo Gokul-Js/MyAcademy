@@ -30,6 +30,7 @@ const Profile = () => {
     e.preventDefault();
     console.log(image)
   }
+      
 
   const {isOpen, onClose, onOpen} = useDisclosure()
 
