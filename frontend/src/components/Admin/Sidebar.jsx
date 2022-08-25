@@ -9,11 +9,11 @@ const Sidebar = () => {
     <VStack 
       spacing={'8'} 
       p='16' 
-      boxShadow={"-2px 0 10px rgba(107,70,193.0.5)"}
+      boxShadow={"-2px 0 10px rgba(107,70,193,0.5)"}
     >
     <LinkButton Icon={RiDashboardFill} text="Dashboard" url={'dashboard'} active={location.pathname==='/admin/dashboard'}/>
     <LinkButton Icon={RiAddCircleFill} text="Create Course" url={'createcourse'} active={location.pathname==='/admin/createcourse'}/>
-    <LinkButton Icon={RiEyeFill} text="Courses" url={'courses'} active={location.pathname==='/admin/courses'} />
+    <LinkButton Icon={RiEyeFill} text="Courses" url={'admincourses'} active={location.pathname==='/admin/admincourses'} />
     <LinkButton Icon={RiUser3Fill} text="Users" url={'users'} active={location.pathname==='/admin/users'}/>
     </VStack>
   )
