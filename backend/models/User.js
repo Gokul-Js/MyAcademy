@@ -47,7 +47,6 @@ avatar: {
 },
 //    Playlist [ courseId,poster ]
 playlist: [
-    
     {
         course: {
             type: mongoose.Schema.Types.ObjectId,
@@ -56,8 +55,15 @@ playlist: [
     },
 ],
 //    CreatedAt type, default
+CreatedAt: {
+   type: Date,
+   default: Date.now,
+},
 //    ResetPasswordToken type
+
+ResetPasswordToken: String,
 //    ResetPasswordExpire type
+ResetPasswordExpire: String,
 });
 
 export const User = mongoose.model("user", schema);
