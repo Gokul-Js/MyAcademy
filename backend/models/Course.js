@@ -53,7 +53,7 @@ const schema = new mongoose.Schema({
         default: 0,
     },
     category: {
-        type: Number,
+        type: String,
         required: true,
     },
     createdBy: {
