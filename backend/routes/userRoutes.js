@@ -1,8 +1,15 @@
 import express from "express"
-import { getAllCourses } from "../controllers/courseController.js";
+import { register } from "../controllers/userController.js";
 
 const router = express.Router();
 
-router.route("/user").get(getAllCourses)
+// To register a new user
+router.route("/register").post(register)
+
+// Login
+
+//Logout
+
+// Get my profile
 
 export default router;
