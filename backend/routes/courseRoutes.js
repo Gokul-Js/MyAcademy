@@ -1,5 +1,6 @@
 import express from "express"
-import { getAllCourses, createCourse, getCourseLectures, addLecture } from "../controllers/courseController.js";
+import { getAllCourses, createCourse, getCourseLectures, addLecture, deleteCourse, deleteLecture } from "../controllers/courseController.js";
+import { authorizeAdmin, isAuthenticated } from "../middlewares/auth.js";
 import singleUpload from "../middlewares/multer.js";
 
 const router = express.Router();
@@ -8,9 +9,15 @@ const router = express.Router();
 router.route("/courses").get(getAllCourses)
 
 // create new course only admin
-router.route("/createcourse").post(singleUpload, createCourse)
+router.route("/createcourse").post(isAuthenticated, authorizeAdmin, singleUpload, createCourse)
 
 // add lecture
-router.route("/course/:id").get(getCourseLectures).post(singleUpload,addLecture)
+router.route("/course/:id")
+.get(getCourseLectures)
+.post( isAuthenticated, authorizeAdmin, singleUpload,addLecture)
+.delete(isAuthenticated, authorizeAdmin, deleteCourse)
+
+// delete lecture
+router.route("/lecture").delete(isAuthenticated, authorizeAdmin, singleUpload, deleteLecture)
 
 export default router;
