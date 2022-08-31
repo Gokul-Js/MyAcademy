@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 import validator from "validator"
 import jwt from 'jsonwebtoken';
 import bcrypt from "bcrypt";
+import crypto from "crypto"
 
 const schema = new mongoose.Schema({
 
@@ -54,6 +55,7 @@ playlist: [
             type: mongoose.Schema.Types.ObjectId,
             ref: "Course",
         },
+        poster: String,
     },
 ],
 //    CreatedAt type, default
@@ -63,9 +65,9 @@ CreatedAt: {
 },
 //    ResetPasswordToken type
 
-ResetPasswordToken: String,
+resetPasswordToken: String,
 //    ResetPasswordExpire type
-ResetPasswordExpire: String,
+resetPasswordExpire: String,
 });
 
 schema.pre("save", async function (next){
@@ -80,8 +82,20 @@ schema.methods.getJWTToken = function (){
 }
 
 schema.methods.comparePassword = async function (password){
-    console.log(this.password)
     return await bcrypt.compare(password,this.password)
+}
+
+schema.methods.getResetToken = function() {
+     const resetToken = crypto.randomBytes(20).toString("hex");
+     
+     this.resetPasswordToken = crypto
+       .createHash("sha256")  // we use crypto algorithams
+       .update(resetToken)
+       .digest("hex");
+
+     this.resetPasswordExpire = Date.now() + 15 * 60 * 1000;
+
+     return resetToken;
 }
 
 export const User = mongoose.model("user", schema);
