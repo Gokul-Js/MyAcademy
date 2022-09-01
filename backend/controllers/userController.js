@@ -7,6 +7,7 @@ import crypto from "crypto"
 import {Course} from "../models/Course.js"
 import cloudinary from "cloudinary"
 import  getDataUri  from "../utils/dataUri.js"
+import { DESTRUCTION } from "dns";
 
 export const register = catchAsyncError(async(req,res,next) =>{
     const {name,email,password} = req.body;
@@ -257,5 +258,79 @@ export const removeFromPlaylist = catchAsyncError(async(req,res,next) => {
   .json({
       success:true,
       message:"Removed From Playlist",
+  })
+})
+
+// Admin Controllers
+
+export const getAllUsers = catchAsyncError(async(req,res,next) => {
+   
+    const users = await User.find({});
+
+  res
+  .status(200)
+  .json({
+      success:true,
+      users,
+  })
+})
+
+export const updateUserRole = catchAsyncError(async(req,res,next) => {
+   
+    const user = await User.findById(req.params.id);
+
+    if(!user) return next(new ErrorHandler("User not found", 404))
+    
+    if(user.role==="user") user.role="admin"
+    else user.role = "user";
+    
+    await user.save()
+
+  res
+  .status(200)
+  .json({
+      success:true,
+      message:"Role Updated"
+  })
+})
+
+export const deleteUser = catchAsyncError(async(req,res,next) => {
+   
+    const user = await User.findById(req.params.id);
+
+    if(!user) return next(new ErrorHandler("User not found", 404))
+    
+    await cloudinary.v2.uploader.destroy(user.avatar.public_id)
+    
+    // cancel Subscription
+
+    await user.remove()
+
+  res
+  .status(200)
+  .json({
+      success:true,
+      message:"User Deleted Successfully"
+  })
+})
+
+export const deleteMyProfile = catchAsyncError(async(req,res,next) => {
+   
+    const user = await User.findById(req.user._id);
+    
+    await cloudinary.v2.uploader.destroy(user.avatar.public_id)
+    
+    // cancel Subscription
+
+    await user.remove()
+
+  res
+  .status(200)
+  .cookie("token",null, {
+    expires: new Date(Date.now()),
+  })
+  .json({
+      success:true,
+      message:"User Deleted Successfully"
   })
 })
