@@ -33,7 +33,7 @@ role: {
     default: "user",
 },
 //    Subscription id, status
-subscripton: {
+subscription: {
     id: String,
     status: String,
 },
