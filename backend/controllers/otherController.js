@@ -40,4 +40,9 @@ export const courseRequest = catchAsyncError(async (req, res) => {
   });
 });
 
-export const getAdminStats = catchAsyncError((req, res) => {});
+export const getAdminStats = catchAsyncError((req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "Admin stats",
+  });
+});
