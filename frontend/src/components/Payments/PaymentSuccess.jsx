@@ -1,44 +1,54 @@
-import React from 'react'
-import { Box, Container, Heading, Text, VStack, Button } from '@chakra-ui/react'
-import {RiCheckboxCircleFill} from "react-icons/ri"
-import {Link} from 'react-router-dom'
-
+import {
+  Box,
+  Button,
+  Container,
+  Heading,
+  Text,
+  VStack,
+} from '@chakra-ui/react';
+import React from 'react';
+import { RiCheckboxCircleFill } from 'react-icons/ri';
+import { Link, useSearchParams } from 'react-router-dom';
 
 const PaymentSuccess = () => {
-  return <Container h="90vh" p="16">
-    <Heading my="8" alignItems={'center'}>You have a Premium Pack </Heading>
+  const reference = useSearchParams()[0].get('reference');
 
-    <VStack
-      boxShadow={"lg"} 
-      pb="16" 
-      alignItems={'center'} 
-      borderRadius="lg"
-    >
+  return (
+    <Container h="90vh" p="16">
+      <Heading my="8" textAlign={'center'}>
+      You have a Premium Pack 
+      </Heading>
 
-    <Box 
-      w="full" 
-      bg="yellow.400" 
-      p="4"
-      css={{ borderRadius: '0 0 8px 8px'}}
-    >
-      <Text color={'black'}>Payment Success</Text>
+      <VStack boxShadow={'lg'} pb="16" alignItems={'center'} borderRadius="lg">
+        <Box
+          w="full"
+          bg="yellow.400"
+          p="4"
+          css={{ borderRadius: '8px 8px 0 0' }}
+        >
+          <Text color={'black'}>Payment Success</Text>
+        </Box>
 
-    </Box>
-    <Box p="4">
-      <VStack textAlign={"center"} px="8" mt="4" spacing={'8'}>
-       <Text>Congratulation you're a pro member. Now, You have access to our All premium Content </Text>
-       <Heading size={'3xl'}>
-        <RiCheckboxCircleFill/>
-       </Heading>
+        <Box p="4">
+          <VStack textAlign={'center'} px="8" mt="4" spacing={'8'}>
+            <Text>
+            Congratulation you're a pro member. Now, You have access to our All premium Content
+            </Text>
+
+            <Heading size={'4xl'}>
+              <RiCheckboxCircleFill />
+            </Heading>
+          </VStack>
+        </Box>
+
+        <Link to="/profile">
+          <Button variant={'ghost'}>Go to profile</Button>
+        </Link>
+
+        <Heading size={'xs'}>Reference: {reference}</Heading>
       </VStack>
-    </Box>
+    </Container>
+  );
+};
 
-    <Link to="/profile" >
-      <Button variant={'ghost'}>Go to profile</Button>
-    </Link>
-
-    <Heading size='xs'>Refrence:qwertyuiop</Heading>
-    </VStack>
-  </Container>
-}
-export default PaymentSuccess
+export default PaymentSuccess;
