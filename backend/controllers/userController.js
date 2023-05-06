@@ -299,16 +299,15 @@ export const deleteMyProfile = catchAsyncError(async (req, res, next) => {
     });
 });
 
-User.watch().on("change", async (data) => {
-  const stats = await Stats.find({}).sort({ createdAt: -1 }).limit(1);
+User.watch().on('change', async (change) => {
+  if (change.operationType === 'update' && change.updateDescription.updatedFields.subscription) {
+    const [stats] = await Stats.find().sort({ createdAt: -1 }).limit(1);
+    const activeSubscribers = await User.countDocuments({ 'subscription.status': 'active' });
 
-  const subscriptions = await User.find({
-    "subscription.status": "active",
-  });
+    stats.subscription = activeSubscribers;
+    stats.users = await User.countDocuments();
+    stats.createdAt = new Date();
 
-  stats[0].subscription = subscriptions.length;
-  stats[0].users = await User.countDocuments();
-  stats[0].createdAt = new Date(Date.now());
-
-  await stats[0].save();
+    await stats.save();
+  }
 });
