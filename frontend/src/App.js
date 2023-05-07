@@ -6,7 +6,7 @@ import Register from './components/Auth/Register';
 import ResetPassword from './components/Auth/ResetPassword';
 import Contact from './components/Contact/Contact';
 import Courses from './components/Courses/Courses';
-import Home from './components/Home/Home';
+addimport Home from './components/Home/home';
 import Footer from './components/Layout/Footer/Footer';
 import Header from './components/Layout/Header/Header';
 import Request from './components/Request/Request';

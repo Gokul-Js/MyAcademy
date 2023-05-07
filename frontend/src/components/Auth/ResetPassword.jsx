@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Button, Container, Heading, Input, VStack } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
