@@ -41,6 +41,7 @@ export const createCourse = catchAsyncError(async (req, res, next) => {
     },
   });
 
+
   res.status(201).json({
     success: true,
     message: "Course Created Successfully. You can add lecture Now ",
