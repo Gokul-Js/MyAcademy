@@ -19,8 +19,8 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     volumes:
-      - ./api/:/usr/src/app
-      - /usr/src/app/node_modules
+      - ./api/:/usr/app
+      - /usr/app/node_modules
     networks:
       - app-network
   nginx:
